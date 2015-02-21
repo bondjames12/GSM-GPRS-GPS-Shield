@@ -81,32 +81,6 @@ char *strucasestr(char *str1, char *str2)
    return 0;
 }
 
-// use "AT+CSQ" for retrieve RSSI
-// 
-// return O if data not available or command fault
-int get_RSSI(void)
-{
-  // local vars
-  int g_rssi;  
-  int g_ber;
-  char* rssistring;
-  gsm.getRSSI(rssistring);
-  //example response string +CSQ: 13,0
-  if (rssistring) {
-	  Serial.println("Got RSSI:");
-	  Serial.println(rssistring);
-    //g_rssi = gsm_modem.parseInt();  
-    //g_ber  = gsm_modem.parseInt();
-    // rssi "99" -> data not yet available
-    //if (g_rssi != 99) 
-      // convert to dBm (0..31 -> -113..-51 dbm)
-    //  g_rssi = (2 * g_rssi) - 113;
-   // else return 0; 
-  } else return 0;
-  //gsm_modem.find("\r\nOK\r\n");
-  return g_rssi;
-}
-
 // DEBUG
 // see  http://www.nongnu.org/avr-libc/user-manual/malloc.html
 void print_RAM_map(void) 
