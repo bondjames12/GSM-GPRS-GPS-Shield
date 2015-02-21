@@ -1006,4 +1006,47 @@ char GSM::ComparePhoneNumber(byte position, char *phone_number)
      return (ret_val);
 }
 
+int GSM::NetworkCheck()
+{
+	char *p_char;
+	char *p_char1;
+	int ret_val;
+	byte status;
+	int networkQ;
+
+	gsm.SimpleWriteln("AT+CSQ");
+
+	switch (WaitResp(2000, 50, "+CSQ")) {
+
+	case RX_TMOUT_ERR:
+		// response was not received in specific time
+
+		break;
+
+	case RX_FINISHED_STR_RECV:
+		// response in case valid phone number stored:
+		// <CR><LF>+CSQ: <index>,<index>
+
+		p_char = strchr((char *)gsm.comm_buf, ':');
+		if (p_char != NULL) {
+			networkQ = atoi(p_char + 1);
+
+			//Serial.print("networkQ ");
+			//Serial.println(networkQ);
+
+			return (networkQ);
+		}
+		break;
+
+	case RX_FINISHED_STR_NOT_RECV:
+		// only OK or ERROR => no phone number
+
+		break;
+	}
+
+	SetCommLineStatus(CLS_FREE);
+	return (networkQ);
+
+
+}
 //-----------------------------------------------------

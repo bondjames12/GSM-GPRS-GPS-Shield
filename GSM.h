@@ -255,6 +255,7 @@ public:
      byte IsRegistered(void);
      // returns whether complete initialization was made
      byte IsInitialized(void);
+	 int NetworkCheck();
      //-----------------------
 
      // debug methods
