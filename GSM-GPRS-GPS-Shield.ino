@@ -40,6 +40,12 @@ void loop()
 	Serial.print("RSSI=");
 	Serial.println(networkQ);
 
+	//GET IMEI and CCI broken
+	//char* imei;
+	//gsm.getIMEI(imei);
+	//Serial.print("IMEI=");
+	//Serial.println(imei);
+
 
   pos = sms.IsSMSPresent(SMS_UNREAD);
   Serial.print(F("SMS Position:"));

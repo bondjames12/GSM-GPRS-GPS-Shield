@@ -44,7 +44,7 @@ int GSM::begin(long baud_rate)
 {
 	 // Set pin modes
 	 pinMode(GSM_ON,OUTPUT);
-	 pinMode(GSM_RESET,OUTPUT);
+//	 pinMode(GSM_RESET,OUTPUT);
 
 #ifdef UNO
      if (baud_rate==115200) {
@@ -69,8 +69,10 @@ int GSM::begin(long baud_rate)
                Serial.println(F("DB:NO RESP"));
 #endif
                // generate turn on pulse
-               digitalWrite(GSM_ON, HIGH);
-               delay(1200);
+			   digitalWrite(GSM_ON, LOW);
+			   delay(1000);
+			   digitalWrite(GSM_ON, HIGH);
+			   delay(2000);
                digitalWrite(GSM_ON, LOW);
                delay(10000);
                WaitResp(1000, 1000);

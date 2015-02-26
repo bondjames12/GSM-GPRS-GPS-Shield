@@ -16,7 +16,6 @@ public:
      int getCCI(char* cci);
      int getIMEI(char* imei);
      int sendSMS(const char* to, const char* msg);
-     boolean readSMS(char* msg, int msglength, char* number, int nlength);
      boolean readCall(char* number, int nlength);
      boolean call(char* number, unsigned int milliseconds);
      char forceON();

@@ -5,8 +5,6 @@
 #define _TCP_CONNECTION_TOUT_ 20
 #define _GSM_DATA_TOUT_ 10
 
-//#define RESETPIN 7
-
 SIMCOM900 gsm;
 SIMCOM900::SIMCOM900() {};
 SIMCOM900::~SIMCOM900() {};
@@ -168,88 +166,6 @@ int SIMCOM900::readCellData(int &mcc, int &mnc, long &lac, long &cellid)
      gsm.WaitResp(5000, 50, "+OK");
      return 1;
 }
-
-boolean SIMCOM900::readSMS(char* msg, int msglength, char* number, int nlength)
-{
-     Serial.println(F("This method is deprecated! Please use GetSMS in the SMS class."));
-     long index;
-     char *p_char;
-     char *p_char1;
-
-     /*
-     if (getStatus()==IDLE)
-       return false;
-     */
-#ifdef UNO
-     _tf.setTimeout(_GSM_DATA_TOUT_);
-#endif
-     //_cell.flush();
-     WaitResp(500, 500);
-     SimpleWriteln(F("AT+CMGL=\"REC UNREAD\",1"));
-
-     WaitResp(5000, 500);
-     if(gsm.IsStringReceived("+CMGL")) {
-
-          //index
-          p_char = strchr((char *)(gsm.comm_buf),'+CMGL');
-          p_char1 = p_char+3;  //we are on the first char of string
-          p_char = p_char1+1;
-          *p_char = 0;
-          index=atoi(p_char1);
-
-          p_char1 = p_char+1;
-          p_char = strstr((char *)(p_char1), "\",\"");
-          p_char1 = p_char+3;
-          p_char = strstr((char *)(p_char1), "\",\"");
-          if (p_char != NULL) {
-               *p_char = 0;
-          }
-          strcpy(number, (char *)(p_char1));
-          //////
-
-          p_char1 = p_char+3;
-          p_char = strstr((char *)(p_char1), "\",\"");
-          p_char1 = p_char+3;
-
-          p_char = strstr((char *)(p_char1), "\n");
-          p_char1 = p_char+1;
-          p_char = strstr((char *)(p_char1), "\n");
-          if (p_char != NULL) {
-               *p_char = 0;
-          }
-          strcpy(msg, (char *)(p_char1));
-
-          // #ifdef UNO
-          // index=_tf.getValue();
-          // #endif
-          // #ifdef MEGA
-          //index=_cell.read();
-          // #endif
-          // Serial.println("DEBUG");
-          // #ifdef UNO
-          // _tf.getString("\",\"", "\"", number, nlength);
-          // #endif
-          // Serial.println("PRIMA");
-          // #ifdef MEGA
-          // _cell.getString("\",\"", "\"", number, nlength);
-          // #endif
-          // Serial.println("DEBUG");
-          // #ifdef UNO
-          // _tf.getString("\n", "\nOK", msg, msglength);
-          // #endif
-          // #ifdef MEGA
-          // _cell.getString("\n", "\nOK", msg, msglength);
-          // #endif
-
-          SimpleWrite(F("AT+CMGD="));
-          SimpleWriteln(index);
-          // Serial.print("VAL= ");
-          // Serial.println(index);
-          gsm.WaitResp(5000, 50, str_ok);
-          return true;
-     };
-     return false;
-};
 
 boolean SIMCOM900::readCall(char* number, int nlength)
 {
