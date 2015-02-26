@@ -433,16 +433,28 @@ void SIMCOM900::SimpleWriteln(char *comm)
 
 void SIMCOM900::SimpleWriteln(const __FlashStringHelper *pgmstr)
 {
+#ifdef DEBUG_ON
+	Serial.print(F("Sent4:"));
+	Serial.println(pgmstr);
+#endif
      _cell.println(pgmstr);
 }
 
 void SIMCOM900::SimpleWriteln(char const *comm)
 {
+#ifdef DEBUG_ON
+	Serial.print(F("Sent0:"));
+	Serial.println(comm);
+#endif
      _cell.println(comm);
 }
 
 void SIMCOM900::SimpleWriteln(int comm)
 {
+#ifdef DEBUG_ON
+	Serial.print(F("Sent1:"));
+	Serial.println(comm);
+#endif
      _cell.println(comm);
 }
 
@@ -1048,5 +1060,13 @@ int GSM::NetworkCheck()
 	return (networkQ);
 
 
+}
+
+void GSM::Wake()
+{
+	gsm.SimpleWriteln("AT");
+	WaitResp(1000, 4, "OK");
+	SetCommLineStatus(CLS_FREE);
+	return;
 }
 //-----------------------------------------------------

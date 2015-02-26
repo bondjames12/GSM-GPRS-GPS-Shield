@@ -29,57 +29,51 @@ void setup()
     Serial.println("\nstatus=READY");
   else 
     Serial.println("\nstatus=IDLE");
+
+  pinMode(10, OUTPUT);
 };
 
 void loop()
 {
+	gsm.Wake();
 	int networkQ = gsm.NetworkCheck();
+	Serial.print("RSSI=");
 	Serial.println(networkQ);
 
 
   pos = sms.IsSMSPresent(SMS_UNREAD);
+  Serial.print(F("SMS Position:"));
   Serial.println((int)pos);
   if ((int)pos > 0 && (int)pos <= 20) {
     Serial.print("New Message, POS=");
     Serial.println((int)pos);
     message[0] = '\0';
     sms.GetSMS((int)pos, number, message, 180);
-    p = strstr(message, "testpwd");
+	p = strcasestr(message, "testpwd");
     if (p) {
       Serial.println("PSWD OK");
-      p = strstr(message, "LEDON");
+	  p = strcasestr(message, "LEDON");
       if (p) {
         Serial.println("LED ON");
         digitalWrite(13, HIGH);
+		//digitalWrite(10, HIGH);
       }
       else {
-        p = strstr(message, "LEDOFF");
+		  p = strcasestr(message, "LEDOFF");
         if (p) {
           Serial.println("LED OFF");
           digitalWrite(13, LOW);
+		  //digitalWrite(10, LOW);
         }
       }
     }
     sms.DeleteSMS((int)pos);
   }
-  delay(5000);
-};
+  delay(3000);
 
-// like std c "strstr" function but not case sensitive
-char *strucasestr(char *str1, char *str2)
-{
-  // local vars  
-  char *a, *b;
-  // compare str 1 and 2 (not case sensitive)
-  while (*str1++) {   
-    a = str1;
-    b = str2;
-    while((*a++ | 32) == (*b++ | 32))
-      if(!*b)
-        return (str1);
-   }
-   return 0;
-}
+  //print_RAM_map();
+
+};
 
 // DEBUG
 // see  http://www.nongnu.org/avr-libc/user-manual/malloc.html

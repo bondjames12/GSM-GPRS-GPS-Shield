@@ -256,6 +256,7 @@ public:
      // returns whether complete initialization was made
      byte IsInitialized(void);
 	 int NetworkCheck();
+	 void Wake(void);
      //-----------------------
 
      // debug methods

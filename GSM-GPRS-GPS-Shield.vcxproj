@@ -47,7 +47,7 @@
       <AdditionalIncludeDirectories>D:\arduino-1.6.0\hardware\arduino\avr\cores\arduino;D:\arduino-1.6.0\hardware\arduino\avr\variants\eightanaloginputs;C:\Users\Colin\Documents\Arduino\GSM-GPRS-GPS-Shield;D:\arduino-1.6.0\hardware\arduino\avr\libraries\SoftwareSerial;D:\arduino-1.6.0\hardware\arduino\avr\libraries\SoftwareSerial\utility;D:\arduino-1.6.0\libraries;D:\arduino-1.6.0\hardware\arduino\avr\libraries;C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers;C:\Users\Colin\Documents\Arduino\libraries;d:\arduino-1.6.0\hardware\tools\avr\avr\include\;d:\arduino-1.6.0\hardware\tools\avr\avr\include\avr\;d:\arduino-1.6.0\hardware\tools\avr\avr\;d:\arduino-1.6.0\hardware\tools\avr\lib\gcc\avr\4.8.1\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>C:\Users\Colin\Documents\Arduino\GSM-GPRS-GPS-Shield\Visual Micro\.GSM-GPRS-GPS-Shield.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
-      <PreprocessorDefinitions>__AVR_ATmega328p__;__AVR_ATmega328P__;ARDUINO=160;ARDUINO_MAIN;__AVR__;__avr__;F_CPU=16000000L;__cplusplus;GCC_VERSION=40801;ARDUINO_ARCH_AVR;ARDUINO_AVR_NANO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__AVR_ATmega328p__;__AVR_ATmega328P__;_VMDEBUG=1;ARDUINO=160;ARDUINO_MAIN;__AVR__;__avr__;F_CPU=16000000L;__cplusplus;GCC_VERSION=40801;ARDUINO_ARCH_AVR;ARDUINO_AVR_NANO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -119,4 +119,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties arduino.upload.port="COM25" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

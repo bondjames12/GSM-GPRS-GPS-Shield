@@ -430,7 +430,10 @@ char GSM::SendATCmdWaitResp(char const *AT_cmd_string,
           // delay 500 msec. before sending next repeated AT command
           // so if we have no_of_attempts=1 tmout will not occurred
           if (i > 0) delay(500);
-
+#ifdef DEBUG_ON
+		  Serial.print(F("Sent2:"));
+		  Serial.println(AT_cmd_string);
+#endif
           _cell.println(AT_cmd_string);
           status = WaitResp(start_comm_tmout, max_interchar_tmout);
           if (status == RX_FINISHED) {
@@ -474,7 +477,10 @@ char GSM::SendATCmdWaitResp(const __FlashStringHelper *AT_cmd_string,
           // delay 500 msec. before sending next repeated AT command
           // so if we have no_of_attempts=1 tmout will not occurred
           if (i > 0) delay(500);
-
+#ifdef DEBUG_ON
+		  Serial.print(F("Sent3:"));
+		  Serial.println(AT_cmd_string);
+#endif
           _cell.println(AT_cmd_string);
           status = WaitResp(start_comm_tmout, max_interchar_tmout);
           if (status == RX_FINISHED) {
@@ -540,6 +546,9 @@ byte GSM::IsRxFinished(void)
                     */
                     comm_buf[comm_buf_len] = 0x00;
                     ret_val = RX_TMOUT_ERR;
+#ifdef DEBUG_ON
+					Serial.println(F("IsxFinished() Exited RX_TMOUT_ERR"));
+#endif
                }
           } else {
                // at least one character received => so init inter-character
@@ -610,7 +619,7 @@ byte GSM::IsRxFinished(void)
                */
                comm_buf[comm_buf_len] = 0x00;  // for sure finish string again
                // but it is not necessary
-               ret_val = RX_FINISHED;
+			   ret_val = RX_FINISHED;
           }
      }
 
@@ -645,9 +654,9 @@ byte GSM::IsStringReceived(char const *compare_string)
           	#endif
           */
 #ifdef DEBUG_ON
-          Serial.print("ATT: ");
+          Serial.print(F("Looking for1:"));
           Serial.println(compare_string);
-          Serial.print("RIC: ");
+          Serial.print(F("Got1:"));
           Serial.println((char *)comm_buf);
 #endif
           ch = strstr((char *)comm_buf, compare_string);
@@ -666,9 +675,9 @@ byte GSM::IsStringReceived(char const *compare_string)
           }
      } else {
 #ifdef DEBUG_ON
-          Serial.print(F("ATT: "));
+          Serial.print(F("Looking for2:"));
           Serial.println(compare_string);
-          Serial.print(F("RIC: NO STRING RCVD"));
+          Serial.println(F("Got2:NO STRING RCVD"));
 #endif
      }
 
