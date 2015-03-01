@@ -278,27 +278,21 @@ int SIMCOM900::getCCI(char *cci)
 
 int SIMCOM900::getIMEI(char *imei)
 {
-
-     //_tf.setTimeout(_GSM_DATA_TOUT_);	//Timeout for expecting modem responses.
-
-     //_cell.flush();
-
-     //AT command to get IMEI.
+	//AT command to get IMEI.
      SimpleWriteln(F("AT+GSN"));
-
-     //Read response from modem
+     //Read response from modem 013949000716822
 #ifdef UNO
      _tf.getString("\r\n","\r\n",imei, 16);
 #endif
 #ifdef MEGA
-     _cell.getString("\r\n","\r\n",imei, 16);
+	 _cell.getString("\r\n","\r\n",imei, 16);
 #endif
-
+	//This crashes arudino don't know why
      //Expect str_ok.
-     if(gsm.WaitResp(5000, 50, str_ok)!=RX_FINISHED_STR_NOT_RECV)
-          return 0;
-     else
-          return 1;
+     //if(gsm.WaitResp(5000, 50, str_ok)!=RX_FINISHED_STR_NOT_RECV)
+     //     return 0;
+     //else
+     //     return 1;
 }
 
 int SIMCOM900::available()
@@ -324,26 +318,46 @@ void SIMCOM900::SimpleRead()
 
 void SIMCOM900::SimpleWrite(char *comm)
 {
+	#ifdef DEBUG_ON
+	Serial.print(F("Sent9:"));
+	Serial.println(comm);
+	#endif
      _cell.print(comm);
 }
 
 void SIMCOM900::SimpleWrite(const char *comm)
 {
+	#ifdef DEBUG_ON
+	Serial.print(F("Sent8:"));
+	Serial.println(comm);
+	#endif
      _cell.print(comm);
 }
 
 void SIMCOM900::SimpleWrite(int comm)
 {
+#ifdef DEBUG_ON
+	Serial.print(F("Sent7:"));
+	Serial.println(comm);
+#endif
      _cell.print(comm);
 }
 
 void SIMCOM900::SimpleWrite(const __FlashStringHelper *pgmstr)
 {
+#ifdef DEBUG_ON
+	Serial.print(F("Sent5:"));
+	Serial.println(pgmstr);
+#endif
      _cell.print(pgmstr);
 }
 
 void SIMCOM900::SimpleWriteln(char *comm)
 {
+#ifdef DEBUG_ON
+	Serial.print(F("Sent6:"));
+	Serial.println(comm);
+#endif
      _cell.println(comm);
 }
 
@@ -942,7 +956,7 @@ int GSM::NetworkCheck()
 	byte status;
 	int networkQ;
 
-	gsm.SimpleWriteln("AT+CSQ");
+	gsm.SimpleWriteln(F("AT+CSQ"));
 
 	switch (WaitResp(2000, 50, "+CSQ")) {
 
@@ -980,9 +994,115 @@ int GSM::NetworkCheck()
 
 void GSM::Wake()
 {
-	gsm.SimpleWriteln("AT");
-	WaitResp(1000, 4, "OK");
+	gsm.SimpleWriteln(str_at);
+	WaitResp(1000, 4, str_ok);
 	SetCommLineStatus(CLS_FREE);
 	return;
 }
+
 //-----------------------------------------------------
+/**********************************************************
+Sets SIM900 Sleep mode (AT+CSCLK)
+
+mode: 0 disable slow clock, module will not enter sleep mode.
+	  1 enable slow clock, it is controlled by DTR. When DTR is
+		  high, module can enter sleep mode. When DTR changes to
+		  low level, module can quit sleep mode.
+		  When SIM900 is in SLEEP mode(CSCLK=1), the following methods can wake up the module.
+		  z Enable DTR pin to wake up SIM900.
+		  If DTR pin is pulled down to a low level? this signal will wake up SIM900 from SLEEP mode. The serial
+		  port will be active after DTR changed to low level for about 50ms.
+		  z Receiving a voice or data call from network to wake up SIM900.
+		  z Receiving a SMS from network to wake up SIM900.
+	  2 The module decides by itself when it enters sleep mode.
+		  When there is no data on serial port, module can enter sleep
+		  mode. Otherwise, it will quit sleep mode. Module will wake
+		  again after receiving data on serial port, although the first byte is discarded.
+		  Use Wake() to sent AT command to wake up modem for 5 seconds
+		 
+		  3.5.4 Sleep Mode(CSCLK=2) (Slow Clock Mode)
+		  In this mode, the SIM900 will continuously monitor the main serial port data signal. When there has no data
+		  transferred exceed 5 seconds on the RXD signal and there is no on air and hardware interrupt (such as GPIO
+		  interrupt or data in serial port), SIM900 will enter SLEEP mode automatically. In this mode, SIM900 can still
+		  receive paging or SMS from network but the serial port is not accessible.
+		  Note: For SIM900, it requests to set AT command “AT+CSCLK=2” to enable the SLEEP mode; the default
+		  value is 0, that can not make the module enter SLEEP mode. For more details please refer to document [1].
+		  3.5.5 Wake Up SIM900 from SLEEP Mode(CSCLK=2)
+		  When SIM900 is in SLEEP mode(CSCLK=2), the following methods can wake up the module.
+		  z User can send data to SIM900 using main serial port, when SIM900 detect the change on the RXD. The first
+		  byte data of user will not be send via module.
+		  z Receiving a voice or data call from network to wake up SIM900.
+		  z Receiving a SMS from network to wake up SIM900
+return:
+	ERROR ret. val:
+	---------------
+	-1 - comm. line to the GSM module is not free
+	-2 - GSM module didn't answer before timeout
+	-3 - mode must be 0,1, or 2
+	-4 - sleep mode command worked but save settings command failed with timeout
+	-5 - sleep mode command worked but save settings command failed with no response
+
+	OK ret val:
+	-----------
+	0 - AT command was sent but something is wrong with the response
+	1 - Sleep mode set sucessfully
+**********************************************************/
+char GSM::SetSleepMode(byte mode)
+{
+	char ret_val = -1;
+	//Sanity checks
+	if (mode < 0 || mode > 2) return (-3);
+	if (CLS_FREE != gsm.GetCommLineStatus()) return (ret_val);
+	//Prepare to send AT command
+	gsm.SetCommLineStatus(CLS_ATCMD);
+	ret_val = 0;
+	//send "AT+CSCLK=X" - where X = sleep mode
+	gsm.SimpleWrite(F("AT+CSCLK="));
+	gsm.SimpleWriteln((int)mode);
+	// 5000 msec. for initial comm tmout
+	// 20 msec. for inter character timeout
+	switch (gsm.WaitResp(5000, 50, str_ok)) {
+		case RX_TMOUT_ERR:
+		// response was not received in specific time
+		ret_val = -2;
+		break;
+
+		case RX_FINISHED_STR_RECV:
+		// OK was received => sleep mode set
+		ret_val = 1;
+		break;
+
+		case RX_FINISHED_STR_NOT_RECV:
+		// other response: e.g. ERROR
+		ret_val = 0;
+		break;
+	}
+	if(ret_val == 1){
+		//Now send save command //AT&W
+		//Prepare to send AT command
+		gsm.SetCommLineStatus(CLS_ATCMD);
+		ret_val = 0;
+		gsm.SimpleWrite(F("AT&W"));
+		// 5000 msec. for initial comm tmout
+		// 20 msec. for inter character timeout
+		switch (gsm.WaitResp(5000, 500, str_ok)) {
+			case RX_TMOUT_ERR:
+			// response was not received in specific time
+			ret_val = -4;
+			break;
+
+			case RX_FINISHED_STR_RECV:
+			// OK was received => settings saved
+			ret_val = 1;
+			break;
+
+			case RX_FINISHED_STR_NOT_RECV:
+			// other response: e.g. ERROR
+			ret_val = -5;
+			break;
+		}
+	}
+
+	gsm.SetCommLineStatus(CLS_FREE);
+	return (ret_val);
+}

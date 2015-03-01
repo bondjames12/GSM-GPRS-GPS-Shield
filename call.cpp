@@ -159,8 +159,8 @@ byte CallGSM::CallStatusWithAuth(char *phone_number,
                // IMPORTANT - each +CLCC:xx response has also at the end
                // string <CR><LF>OK<CR><LF>
                ret_val = CALL_OTHERS;
-          } else if(gsm.IsStringReceived("OK")) {
-               // only "OK" => there is NO call activity
+               } else if(gsm.IsStringReceived(str_ok)) {
+               // only str_ok => there is NO call activity
                // --------------------------------------
                ret_val = CALL_NONE;
           }
@@ -227,7 +227,7 @@ void CallGSM::PickUp(void)
 {
      //if (CLS_FREE != gsm.GetCommLineStatus()) return;
      //gsm.SetCommLineStatus(CLS_ATCMD);
-     gsm.SendATCmdWaitResp("ATA", 10, 10, "OK", 3);
+     gsm.SendATCmdWaitResp("ATA", 10, 10, str_ok, 3);
      gsm.SimpleWriteln("ATA");
      //gsm.SetCommLineStatus(CLS_FREE);
 }
@@ -241,7 +241,7 @@ void CallGSM::HangUp(void)
 {
      //if (CLS_FREE != gsm.GetCommLineStatus()) return;
      //gsm.SetCommLineStatus(CLS_ATCMD);
-     gsm.SendATCmdWaitResp("ATH", 500, 100, "OK", 5);
+     gsm.SendATCmdWaitResp("ATH", 500, 100, str_ok, 5);
      //gsm.SetCommLineStatus(CLS_FREE);
 }
 
@@ -295,22 +295,22 @@ void CallGSM::SendDTMF(char *number_string, int time)
 
      gsm.SimpleWrite(F("AT+VTD="));
      gsm.SimpleWriteln(time);
-     gsm.WaitResp(1000, 100, "OK");
+     gsm.WaitResp(1000, 100, str_ok);
 
      gsm.SimpleWrite(F("AT+VTS=\""));
      gsm.SimpleWrite(number_string);
      gsm.SimpleWriteln(F("\""));
 
-     gsm.WaitResp(5000, 100, "OK");
+     gsm.WaitResp(5000, 100, str_ok);
      gsm.SetCommLineStatus(CLS_FREE);
 }
 
 void CallGSM::SetDTMF(int DTMF_status)
 {
      if(DTMF_status==1)
-          gsm.SendATCmdWaitResp("AT+DDET=1", 500, 50, "OK", 5);
+          gsm.SendATCmdWaitResp("AT+DDET=1", 500, 50, str_ok, 5);
      else
-          gsm.SendATCmdWaitResp("AT+DDET=0", 500, 50, "OK", 5);
+          gsm.SendATCmdWaitResp("AT+DDET=0", 500, 50, str_ok, 5);
 }
 
 

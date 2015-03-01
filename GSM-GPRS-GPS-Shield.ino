@@ -31,6 +31,10 @@ void setup()
     Serial.println("\nstatus=IDLE");
 
   pinMode(10, OUTPUT);
+  
+  //reinit SMS mode to enable new SMS notifications
+  gsm.InitSMSMemory(1);
+  gsm.SetSleepMode(2);
 };
 
 void loop()
@@ -41,10 +45,10 @@ void loop()
 	Serial.println(networkQ);
 
 	//GET IMEI and CCI broken
-	//char* imei;
-	//gsm.getIMEI(imei);
-	//Serial.print("IMEI=");
-	//Serial.println(imei);
+	char imei[16];
+	gsm.getIMEI(imei);
+	Serial.print("IMEI=");
+	Serial.println(imei);
 
 
   pos = sms.IsSMSPresent(SMS_UNREAD);

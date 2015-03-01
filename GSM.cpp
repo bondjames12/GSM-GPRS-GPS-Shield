@@ -371,7 +371,7 @@ void GSM::InitParam(byte group)
           // select speaker volume (0 to 14)
           //SetSpeakerVolume(9);
           // init SMS storage
-          InitSMSMemory();
+          InitSMSMemory(false);
           // select phonebook memory storage
           SendATCmdWaitResp(F("AT+CPBS=\"SM\""), 1000, 50, str_ok, 5);
           SendATCmdWaitResp(F("AT+CIPSHUT"), 500, 50, "SHUT OK", 5);
@@ -712,7 +712,7 @@ void GSM::Echo(byte state)
      }
 }
 
-char GSM::InitSMSMemory(void)
+char GSM::InitSMSMemory(bool notifyNewSMS)
 {
      char ret_val = -1;
 
@@ -720,8 +720,15 @@ char GSM::InitSMSMemory(void)
      SetCommLineStatus(CLS_ATCMD);
      ret_val = 0; // not initialized yet
 
-     // Disable messages about new SMS from the GSM module
-     SendATCmdWaitResp(F("AT+CNMI=2,0"), 1000, 50, str_ok, 2);
+	if(notifyNewSMS) {
+		// ENABLE messages about new SMS from the GSM module
+		SendATCmdWaitResp(F("AT+CNMI=2,1"), 1000, 50, str_ok, 2);
+	}
+	else
+	{
+		// Disable messages about new SMS from the GSM module
+		SendATCmdWaitResp(F("AT+CNMI=2,0"), 1000, 50, str_ok, 2);
+	}
 
      // send AT command to init memory for SMS in the SIM card
      // response:

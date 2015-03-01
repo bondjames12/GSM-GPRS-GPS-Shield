@@ -78,7 +78,7 @@
 
 // Common string used
 #define str_ok 		"OK"			//string to reduce stack usage
-#define str_at		"AT"			//string to reduce stack usage
+#define str_at		F("AT")			//string to reduce stack usage
 
 // SMS type
 // use by method IsSMSPresent()
@@ -161,6 +161,7 @@ public:
      enum GSM_st_e { ERROR, IDLE, READY, ATTACHED, TCPSERVERWAIT, TCPCONNECTEDSERVER, TCPCONNECTEDCLIENT };
      byte comm_buf[COMM_BUF_LEN+1];  // communication buffer +1 for 0x00 termination
      void InitParam (byte group);
+	 char InitSMSMemory(bool notifyNewSMS);
 
 private:
      int _status;
@@ -180,7 +181,7 @@ private:
 
      // last value of speaker volume
      byte last_speaker_volume;
-     char InitSMSMemory(void);
+     
 
 protected:
 #ifdef MEGA
@@ -257,6 +258,7 @@ public:
      byte IsInitialized(void);
 	 int NetworkCheck();
 	 void Wake(void);
+	 char SetSleepMode(byte mode);
      //-----------------------
 
      // debug methods

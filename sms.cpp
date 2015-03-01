@@ -186,7 +186,7 @@ char SMSGSM::IsSMSPresent(byte required_status)
      gsm.RxInit(5000, 1500);
      // wait response is finished
      do {
-          if (gsm.IsStringReceived("OK")) {
+          if (gsm.IsStringReceived(str_ok)) {
                // perfect - we have some response, but what:
 
                // there is either NO SMS:
@@ -308,7 +308,7 @@ char SMSGSM::GetSMS(byte position, char *phone_number, char *SMS_text, byte max_
 
      case RX_FINISHED_STR_NOT_RECV:
           // OK was received => there is NO SMS stored in this position
-          if(gsm.IsStringReceived("OK")) {
+          if(gsm.IsStringReceived(str_ok)) {
                // there is only response <CR><LF>OK<CR><LF>
                // => there is NO SMS
                ret_val = GETSMS_NO_SMS;
@@ -538,7 +538,7 @@ char SMSGSM::DeleteSMS(byte position)
 
      // 5000 msec. for initial comm tmout
      // 20 msec. for inter character timeout
-     switch (gsm.WaitResp(5000, 50, "OK")) {
+     switch (gsm.WaitResp(5000, 50, str_ok)) {
      case RX_TMOUT_ERR:
           // response was not received in specific time
           ret_val = -2;
