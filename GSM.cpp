@@ -150,9 +150,9 @@ int GSM::begin(long baud_rate)
 #ifdef DEBUG_ON
                     Serial.println(F("DB:FOUND PREV BR"));
 #endif
-                    _cell.print("AT+IPR=");
+                    _cell.print(F("AT+IPR="));
                     _cell.print(baud_rate);
-                    _cell.print("\r"); // send <CR>
+                    _cell.print(F("\r")); // send <CR>
                     delay(500);
                     _cell.begin(baud_rate);
                     delay(100);
@@ -306,9 +306,9 @@ int GSM::begin(long baud_rate)
           //just to try to fix some problems with 115200 baudrate
           _cell.begin(115200);
           delay(1000);
-          _cell.print("AT+IPR=");
+          _cell.print(F("AT+IPR="));
           _cell.print(baud_rate);
-          _cell.print("\r"); // send <CR>
+          _cell.print(F("\r")); // send <CR>
           return(0);
      }
 }
@@ -374,13 +374,13 @@ void GSM::InitParam(byte group)
           InitSMSMemory(false);
           // select phonebook memory storage
           SendATCmdWaitResp(F("AT+CPBS=\"SM\""), 1000, 50, str_ok, 5);
-          SendATCmdWaitResp(F("AT+CIPSHUT"), 500, 50, "SHUT OK", 5);
+          SendATCmdWaitResp(F("AT+CIPSHUT"), 500, 50, F("SHUT OK"), 5);
           break;
      }
 }
 
 byte GSM::WaitResp(uint16_t start_comm_tmout, uint16_t max_interchar_tmout,
-                   char const *expected_resp_string)
+                   const __FlashStringHelper *expected_resp_string)
 {
      byte status;
      byte ret_val;
@@ -419,9 +419,9 @@ return:
       AT_RESP_ERR_DIF_RESP = 0,   // response_string is different from the response
       AT_RESP_OK = 1,             // response_string was included in the response
 **********************************************************/
-char GSM::SendATCmdWaitResp(char const *AT_cmd_string,
+/*char GSM::SendATCmdWaitResp(char const *AT_cmd_string,
                             uint16_t start_comm_tmout, uint16_t max_interchar_tmout,
-                            char const *response_string,
+                            const __FlashStringHelper *response_string,
                             byte no_of_attempts)
 {
      byte status;
@@ -456,7 +456,7 @@ char GSM::SendATCmdWaitResp(char const *AT_cmd_string,
      WaitResp(1000, 5000);
      return (ret_val);
 }
-
+*/
 
 /**********************************************************
 Method sends AT command and waits for response
@@ -468,13 +468,13 @@ return:
 **********************************************************/
 char GSM::SendATCmdWaitResp(const __FlashStringHelper *AT_cmd_string,
                             uint16_t start_comm_tmout, uint16_t max_interchar_tmout,
-                            char const *response_string,
+                            const __FlashStringHelper *response_string,
                             byte no_of_attempts)
 {
      byte status;
      char ret_val = AT_RESP_ERR_NO_RESP;
      byte i;
-
+	 
      for (i = 0; i < no_of_attempts; i++) {
           // delay 500 msec. before sending next repeated AT command
           // so if we have no_of_attempts=1 tmout will not occurred
@@ -637,8 +637,13 @@ compare_string - pointer to the string which should be find
 return: 0 - string was NOT received
         1 - string was received
 **********************************************************/
-byte GSM::IsStringReceived(char const *compare_string)
+byte GSM::IsStringReceived(const __FlashStringHelper *flashstring)
 {
+	//Get length of flash string
+	unsigned int len = strlen_P((const char PROGMEM *)flashstring);
+	char compare_string[len];//create var in memory to hold string 	
+	strcpy_P(compare_string, (const char PROGMEM *)flashstring); //copy string from flash to RAM
+	 
      char *ch;
      byte ret_val = 0;
 
@@ -704,9 +709,9 @@ void GSM::Echo(byte state)
      if (state == 0 or state == 1) {
           SetCommLineStatus(CLS_ATCMD);
 
-          _cell.print("ATE");
+          _cell.print(F("ATE"));
           _cell.print((int)state);
-          _cell.print("\r");
+          _cell.print(F("\r"));
           delay(500);
           SetCommLineStatus(CLS_FREE);
      }
@@ -733,7 +738,7 @@ char GSM::InitSMSMemory(bool notifyNewSMS)
      // send AT command to init memory for SMS in the SIM card
      // response:
      // +CPMS: <usedr>,<totalr>,<usedw>,<totalw>,<useds>,<totals>
-     if (AT_RESP_OK == SendATCmdWaitResp(F("AT+CPMS=\"SM\",\"SM\",\"SM\""), 1000, 1000, "+CPMS:", 10)) {
+     if (AT_RESP_OK == SendATCmdWaitResp(F("AT+CPMS=\"SM\",\"SM\",\"SM\""), 1000, 1000, F("+CPMS:"), 10)) {
           ret_val = 1;
      } else ret_val = 0;
 

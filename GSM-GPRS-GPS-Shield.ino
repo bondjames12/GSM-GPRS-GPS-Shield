@@ -41,13 +41,13 @@ void loop()
 {
 	gsm.Wake();
 	int networkQ = gsm.NetworkCheck();
-	Serial.print("RSSI=");
+	Serial.print(F("RSSI="));
 	Serial.println(networkQ);
 
 	//GET IMEI and CCI broken
 	char imei[16];
 	gsm.getIMEI(imei);
-	Serial.print("IMEI=");
+	Serial.print(F("IMEI="));
 	Serial.println(imei);
 
 
@@ -55,7 +55,7 @@ void loop()
   Serial.print(F("SMS Position:"));
   Serial.println((int)pos);
   if ((int)pos > 0 && (int)pos <= 20) {
-    Serial.print("New Message, POS=");
+    Serial.print(F("New Message, POS="));
     Serial.println((int)pos);
     message[0] = '\0';
     sms.GetSMS((int)pos, number, message, 180);

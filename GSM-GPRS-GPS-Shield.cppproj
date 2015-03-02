@@ -122,7 +122,174 @@
   <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
 </AvrGccCpp>
     </ToolchainSettings>
-    <VMSETTING_IncludePaths>D:/arduino-1.6.0/hardware/arduino/avr/cores/arduino;D:/arduino-1.6.0/hardware/arduino/avr/variants/eightanaloginputs;../../GSM-GPRS-GPS-Shield;D:/arduino-1.6.0/hardware/arduino/avr/libraries/SoftwareSerial;D:/arduino-1.6.0/hardware/arduino/avr/libraries/SoftwareSerial/utility;D:/arduino-1.6.0/libraries;D:/arduino-1.6.0/hardware/arduino/avr/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/Colin/Documents/Arduino/libraries;d:/arduino-1.6.0/hardware/tools/avr/avr/include/;d:/arduino-1.6.0/hardware/tools/avr/avr/include/avr/;d:/arduino-1.6.0/hardware/tools/avr/avr/;d:/arduino-1.6.0/hardware/tools/avr/lib/gcc/avr/4.8.1/include/;;</VMSETTING_IncludePaths>
+    <VMSETTING_IncludePaths>D:/arduino-1.6.0/hardware/arduino/avr/cores/arduino;D:/arduino-1.6.0/hardware/arduino/avr/variants/eightanaloginputs;../../GSM-GPRS-GPS-Shield;D:/arduino-1.6.0/hardware/arduino/avr/libraries/SoftwareSerial;D:/arduino-1.6.0/hardware/arduino/avr/libraries/SoftwareSerial/utility;D:/arduino-1.6.0/libraries;D:/arduino-1.6.0/hardware/arduino/avr/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/Colin/Documents/Arduino/libraries;d:/arduino-1.6.0/hardware/tools/avr/avr/include/;d:/arduino-1.6.0/hardware/tools/avr/avr/include/avr/;d:/arduino-1.6.0/hardware/tools/avr/avr/;d:/arduino-1.6.0/hardware/tools/avr/lib/gcc/avr/4.8.1/include/;;D:/arduino-1.6.0/hardware/arduino/avr/variants/mega;</VMSETTING_IncludePaths>
+    <VisualMicroSettings>
+      <VisualMicroSettings>
+        <arduino.board.name>nano_atmega328</arduino.board.name>
+        <arduino.board.desc>Arduino Nano w/ ATmega328</arduino.board.desc>
+        <arduino.board.property_bag>name=Arduino Nano w/ ATmega328
+upload.tool=avrdude
+upload.protocol=arduino
+bootloader.tool=avrdude
+bootloader.unlock_bits=0x3F
+bootloader.lock_bits=0x0F
+build.f_cpu=16000000L
+build.board=AVR_NANO
+build.core=arduino
+build.variant=eightanaloginputs
+menu.cpu.atmega328=ATmega328
+menu.cpu.atmega328.upload.maximum_size=30720
+menu.cpu.atmega328.upload.maximum_data_size=2048
+menu.cpu.atmega328.upload.speed=57600
+menu.cpu.atmega328.bootloader.low_fuses=0xFF
+menu.cpu.atmega328.bootloader.high_fuses=0xDA
+menu.cpu.atmega328.bootloader.extended_fuses=0x05
+menu.cpu.atmega328.bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
+menu.cpu.atmega328.build.mcu=atmega328p
+menu.cpu.atmega168=ATmega168
+menu.cpu.atmega168.upload.maximum_size=14336
+menu.cpu.atmega168.upload.maximum_data_size=1024
+menu.cpu.atmega168.upload.speed=19200
+menu.cpu.atmega168.bootloader.low_fuses=0xff
+menu.cpu.atmega168.bootloader.high_fuses=0xdd
+menu.cpu.atmega168.bootloader.extended_fuses=0x00
+menu.cpu.atmega168.bootloader.file=atmega/ATmegaBOOT_168_diecimila.hex
+menu.cpu.atmega168.build.mcu=atmega168
+runtime.ide.path=D:\arduino-1.6.0
+build.system.path=D:\arduino-1.6.0\hardware\arduino\avr\system
+runtime.ide.version=160
+originalid=nano
+tools.atprogram.cmd.path=%AVRSTUDIO_EXE_PATH%\atbackend\atprogram
+tools.atprogram.cmd.setwinpath=true
+tools.atprogram.program.params.verbose=-v
+tools.atprogram.program.params.quiet=-q
+tools.atprogram.program.pattern="{cmd.path}" -d {build.mcu} {program.verbose} {program.extra_params} program -c -f "{build.path}\{build.project_name}.hex"
+tools.atprogram.program.xpattern="{cmd.path}" {AVRSTUDIO_BACKEND_CONNECTION} -d {build.mcu} {program.verbose} {program.extra_params} program -c -f "{build.path}\{build.project_name}.hex"
+version=1.6.0
+compiler.path={runtime.ide.path}/hardware/tools/avr/bin/
+compiler.c.cmd=avr-gcc
+compiler.c.flags=-c -g -Os -w -ffunction-sections -fdata-sections -MMD
+compiler.c.elf.flags=-w -Os -Wl,--gc-sections
+compiler.c.elf.cmd=avr-gcc
+compiler.S.flags=-c -g -x assembler-with-cpp
+compiler.cpp.cmd=avr-g++
+compiler.cpp.flags=-c -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD
+compiler.ar.cmd=avr-ar
+compiler.ar.flags=rcs
+compiler.objcopy.cmd=avr-objcopy
+compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
+compiler.elf2hex.flags=-O ihex -R .eeprom
+compiler.elf2hex.cmd=avr-objcopy
+compiler.ldflags=
+compiler.size.cmd=avr-size
+build.extra_flags=
+compiler.c.extra_flags=
+compiler.c.elf.extra_flags=
+compiler.S.extra_flags=
+compiler.cpp.extra_flags=
+compiler.ar.extra_flags=
+compiler.objcopy.eep.extra_flags=
+compiler.elf2hex.extra_flags=
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -mmcu={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -mmcu={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+recipe.S.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.S.flags} -mmcu={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.S.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{build.path}/{archive_file}" "{object_file}"
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -mmcu={build.mcu} {compiler.c.elf.extra_flags} -o "{build.path}/{build.project_name}.elf" {object_files} "{build.path}/{archive_file}" "-L{build.path}" -lm
+recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.eep"
+recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
+recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
+recipe.size.regex=^(?:\.text|\.data|\.bootloader)\s+([0-9]+).*
+recipe.size.regex.data=^(?:\.data|\.bss|\.noinit)\s+([0-9]+).*
+recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
+tools.avrdude.cmd.path={runtime.ide.path}/hardware/tools/avr/bin/avrdude
+tools.avrdude.config.path={runtime.ide.path}/hardware/tools/avr/etc/avrdude.conf
+tools.avrdude.upload.params.verbose=-v
+tools.avrdude.upload.params.quiet=-q -q
+tools.avrdude.upload.pattern="{cmd.path}" "-C{config.path}" {upload.verbose} -p{build.mcu} -c{upload.protocol} -P{serial.port} -b{upload.speed} -D "-Uflash:w:{build.path}/{build.project_name}.hex:i"
+tools.avrdude.program.params.verbose=-v
+tools.avrdude.program.params.quiet=-q -q
+tools.avrdude.program.pattern="{cmd.path}" "-C{config.path}" {program.verbose} -p{build.mcu} -c{protocol} {program.extra_params} "-Uflash:w:{build.path}/{build.project_name}.hex:i"
+tools.avrdude.erase.params.verbose=-v
+tools.avrdude.erase.params.quiet=-q -q
+tools.avrdude.erase.pattern="{cmd.path}" "-C{config.path}" {erase.verbose} -p{build.mcu} -c{protocol} {program.extra_params} -e -Ulock:w:{bootloader.unlock_bits}:m -Uefuse:w:{bootloader.extended_fuses}:m -Uhfuse:w:{bootloader.high_fuses}:m -Ulfuse:w:{bootloader.low_fuses}:m
+tools.avrdude.bootloader.params.verbose=-v
+tools.avrdude.bootloader.params.quiet=-q -q
+tools.avrdude.bootloader.pattern="{cmd.path}" "-C{config.path}" {bootloader.verbose} -p{build.mcu} -c{protocol} {program.extra_params} "-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i" -Ulock:w:{bootloader.lock_bits}:m
+build.usb_manufacturer=
+build.usb_flags=-DUSB_VID={build.vid} -DUSB_PID={build.pid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT={build.usb_product}'
+vm.platform.root.path=C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\arduino16x
+upload.maximum_size=30720
+upload.maximum_data_size=2048
+upload.speed=57600
+bootloader.low_fuses=0xFF
+bootloader.high_fuses=0xDA
+bootloader.extended_fuses=0x05
+bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
+build.mcu=atmega328p
+ide.hint=Arduino 1.6 Ide
+ide.location.key=Arduino16x
+ide.location.ide.winreg=Arduino 1.6.x Application
+ide.location.sketchbook.winreg=Arduino 1.6.x Sketchbook
+ide.location.sketchbook.preferences=sketchbook.path
+ide.location.preferences=%VM_APPDATA_ROAMING%\arduino15\preferences.txt
+ide.location.preferences_fallback=%VM_APPDATA_ROAMING%\arduino\preferences.txt
+ide.default.version=160
+ide.default.package=arduino
+ide.default.platform=avr
+ide.multiplatform=true
+ide.includes=arduino.h
+ide.platformswithoutpackage=false
+ide.includes.fallback=wprogram.h
+ide.extension=ino
+ide.extension.fallback=pde
+ide.versionGTEQ=160
+ide.exe=arduino.exe
+ide.hosts=atmel
+ide.url=http://arduino.cc/en/Main/Software
+ide.help.reference.path={runtime.ide.path}\arduino.cc\en\Reference
+vm.debug=true
+software=ARDUINO
+ssh.user.name=root
+ssh.user.default.password=arduino
+ssh.host.wwwfiles.path=/www/sd
+build.working_directory={runtime.ide.path}
+ide.appid=arduino16x
+location.sketchbook=C:\Users\Colin\Documents\Arduino
+vm.core.include=arduino.h
+vm.boardsource.path=D:\arduino-1.6.0\hardware\arduino\avr
+runtime.platform.path=D:\arduino-1.6.0\hardware\arduino\avr
+vm.platformname.name=avr
+build.arch=AVR
+build.architecture=avr
+vmresolved.compiler.path=D:\arduino-1.6.0\hardware\tools\avr\bin\
+vmresolved.tools.path=D:\arduino-1.6.0\hardware\tools\avr
+vm.runtime.compiler.showwarnings=false
+serial.port.file=COM25
+serial.port=COM25
+includes= -I"D:\arduino-1.6.0\hardware\arduino\avr\cores\arduino"  -I"D:\arduino-1.6.0\hardware\arduino\avr\variants\eightanaloginputs"  -I"D:\arduino-1.6.0\hardware\arduino\avr\libraries\SoftwareSerial"  -I"D:\arduino-1.6.0\libraries"  -I"D:\arduino-1.6.0\hardware\arduino\avr\libraries"  -I"C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers"  -I"C:\Users\Colin\Documents\Arduino\libraries" 
+build.path=C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328
+build.project_name=GSM-GPRS-GPS-Shield
+build.variant.path=D:\arduino-1.6.0\hardware\arduino\avr\variants\eightanaloginputs
+archive_file=core.a
+object_file=C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\SoftwareSerial\SoftwareSerial.cpp.o
+source_file=D:\arduino-1.6.0\hardware\arduino\avr\libraries\SoftwareSerial\SoftwareSerial.cpp
+object_files="C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\call.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\gps.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\GSM-GPRS-GPS-Shield.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\GSM.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\HWSerial.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\inetGSM.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\LOG.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\SIM900.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\sms.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\WideTextFinder.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\SoftwareSerial\SoftwareSerial.cpp.o" 
+upload.verbose=-q -q
+path=D:\arduino-1.6.0\hardware\tools
+cmd.path={runtime.ide.path}/hardware/tools/avr/bin/avrdude
+config.path={runtime.ide.path}/hardware/tools/avr/etc/avrdude.conf
+</arduino.board.property_bag>
+        <arduino.build.mcu>atmega328p</arduino.build.mcu>
+        <arduino.build.f_cpu>16000000L</arduino.build.f_cpu>
+        <arduino.build.core>arduino</arduino.build.core>
+        <arduino.upload.protocol>arduino</arduino.upload.protocol>
+        <arduino.upload.speed>57600</arduino.upload.speed>
+        <arduino.upload.maximum_size>30720</arduino.upload.maximum_size>
+        <visualmicro.application.name>arduino16x</visualmicro.application.name>
+        <visualmicro.package.name>arduino</visualmicro.package.name>
+        <visualmicro.platform.name>avr</visualmicro.platform.name>
+      </VisualMicroSettings>
+    </VisualMicroSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
@@ -207,7 +374,174 @@
   <avrgcccpp.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcccpp.assembler.debugging.DebugLevel>
 </AvrGccCpp>
     </ToolchainSettings>
-    <VMSETTING_IncludePaths>D:/arduino-1.6.0/hardware/arduino/avr/cores/arduino;D:/arduino-1.6.0/hardware/arduino/avr/variants/eightanaloginputs;../../GSM-GPRS-GPS-Shield;D:/arduino-1.6.0/hardware/arduino/avr/libraries/SoftwareSerial;D:/arduino-1.6.0/hardware/arduino/avr/libraries/SoftwareSerial/utility;D:/arduino-1.6.0/libraries;D:/arduino-1.6.0/hardware/arduino/avr/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/Colin/Documents/Arduino/libraries;d:/arduino-1.6.0/hardware/tools/avr/avr/include/;d:/arduino-1.6.0/hardware/tools/avr/avr/include/avr/;d:/arduino-1.6.0/hardware/tools/avr/avr/;d:/arduino-1.6.0/hardware/tools/avr/lib/gcc/avr/4.8.1/include/;;</VMSETTING_IncludePaths>
+    <VMSETTING_IncludePaths>D:/arduino-1.6.0/hardware/arduino/avr/cores/arduino;D:/arduino-1.6.0/hardware/arduino/avr/variants/eightanaloginputs;../../GSM-GPRS-GPS-Shield;D:/arduino-1.6.0/hardware/arduino/avr/libraries/SoftwareSerial;D:/arduino-1.6.0/hardware/arduino/avr/libraries/SoftwareSerial/utility;D:/arduino-1.6.0/libraries;D:/arduino-1.6.0/hardware/arduino/avr/libraries;C:/Program Files (x86)/Visual Micro/Visual Micro for Arduino/Micro Platforms/default/debuggers;C:/Users/Colin/Documents/Arduino/libraries;d:/arduino-1.6.0/hardware/tools/avr/avr/include/;d:/arduino-1.6.0/hardware/tools/avr/avr/include/avr/;d:/arduino-1.6.0/hardware/tools/avr/avr/;d:/arduino-1.6.0/hardware/tools/avr/lib/gcc/avr/4.8.1/include/;;D:/arduino-1.6.0/hardware/arduino/avr/variants/mega;</VMSETTING_IncludePaths>
+    <VisualMicroSettings>
+      <VisualMicroSettings>
+        <arduino.board.name>nano_atmega328</arduino.board.name>
+        <arduino.board.desc>Arduino Nano w/ ATmega328</arduino.board.desc>
+        <arduino.board.property_bag>name=Arduino Nano w/ ATmega328
+upload.tool=avrdude
+upload.protocol=arduino
+bootloader.tool=avrdude
+bootloader.unlock_bits=0x3F
+bootloader.lock_bits=0x0F
+build.f_cpu=16000000L
+build.board=AVR_NANO
+build.core=arduino
+build.variant=eightanaloginputs
+menu.cpu.atmega328=ATmega328
+menu.cpu.atmega328.upload.maximum_size=30720
+menu.cpu.atmega328.upload.maximum_data_size=2048
+menu.cpu.atmega328.upload.speed=57600
+menu.cpu.atmega328.bootloader.low_fuses=0xFF
+menu.cpu.atmega328.bootloader.high_fuses=0xDA
+menu.cpu.atmega328.bootloader.extended_fuses=0x05
+menu.cpu.atmega328.bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
+menu.cpu.atmega328.build.mcu=atmega328p
+menu.cpu.atmega168=ATmega168
+menu.cpu.atmega168.upload.maximum_size=14336
+menu.cpu.atmega168.upload.maximum_data_size=1024
+menu.cpu.atmega168.upload.speed=19200
+menu.cpu.atmega168.bootloader.low_fuses=0xff
+menu.cpu.atmega168.bootloader.high_fuses=0xdd
+menu.cpu.atmega168.bootloader.extended_fuses=0x00
+menu.cpu.atmega168.bootloader.file=atmega/ATmegaBOOT_168_diecimila.hex
+menu.cpu.atmega168.build.mcu=atmega168
+runtime.ide.path=D:\arduino-1.6.0
+build.system.path=D:\arduino-1.6.0\hardware\arduino\avr\system
+runtime.ide.version=160
+originalid=nano
+tools.atprogram.cmd.path=%AVRSTUDIO_EXE_PATH%\atbackend\atprogram
+tools.atprogram.cmd.setwinpath=true
+tools.atprogram.program.params.verbose=-v
+tools.atprogram.program.params.quiet=-q
+tools.atprogram.program.pattern="{cmd.path}" -d {build.mcu} {program.verbose} {program.extra_params} program -c -f "{build.path}\{build.project_name}.hex"
+tools.atprogram.program.xpattern="{cmd.path}" {AVRSTUDIO_BACKEND_CONNECTION} -d {build.mcu} {program.verbose} {program.extra_params} program -c -f "{build.path}\{build.project_name}.hex"
+version=1.6.0
+compiler.path={runtime.ide.path}/hardware/tools/avr/bin/
+compiler.c.cmd=avr-gcc
+compiler.c.flags=-c -g -Os -w -ffunction-sections -fdata-sections -MMD
+compiler.c.elf.flags=-w -Os -Wl,--gc-sections
+compiler.c.elf.cmd=avr-gcc
+compiler.S.flags=-c -g -x assembler-with-cpp
+compiler.cpp.cmd=avr-g++
+compiler.cpp.flags=-c -g -Os -w -fno-exceptions -ffunction-sections -fdata-sections -fno-threadsafe-statics -MMD
+compiler.ar.cmd=avr-ar
+compiler.ar.flags=rcs
+compiler.objcopy.cmd=avr-objcopy
+compiler.objcopy.eep.flags=-O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0
+compiler.elf2hex.flags=-O ihex -R .eeprom
+compiler.elf2hex.cmd=avr-objcopy
+compiler.ldflags=
+compiler.size.cmd=avr-size
+build.extra_flags=
+compiler.c.extra_flags=
+compiler.c.elf.extra_flags=
+compiler.S.extra_flags=
+compiler.cpp.extra_flags=
+compiler.ar.extra_flags=
+compiler.objcopy.eep.extra_flags=
+compiler.elf2hex.extra_flags=
+recipe.c.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.c.flags} -mmcu={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.c.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+recipe.cpp.o.pattern="{compiler.path}{compiler.cpp.cmd}" {compiler.cpp.flags} -mmcu={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.cpp.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+recipe.S.o.pattern="{compiler.path}{compiler.c.cmd}" {compiler.S.flags} -mmcu={build.mcu} -DF_CPU={build.f_cpu} -DARDUINO={runtime.ide.version} -DARDUINO_{build.board} -DARDUINO_ARCH_{build.arch} {compiler.S.extra_flags} {build.extra_flags} {includes} "{source_file}" -o "{object_file}"
+recipe.ar.pattern="{compiler.path}{compiler.ar.cmd}" {compiler.ar.flags} {compiler.ar.extra_flags} "{build.path}/{archive_file}" "{object_file}"
+recipe.c.combine.pattern="{compiler.path}{compiler.c.elf.cmd}" {compiler.c.elf.flags} -mmcu={build.mcu} {compiler.c.elf.extra_flags} -o "{build.path}/{build.project_name}.elf" {object_files} "{build.path}/{archive_file}" "-L{build.path}" -lm
+recipe.objcopy.eep.pattern="{compiler.path}{compiler.objcopy.cmd}" {compiler.objcopy.eep.flags} {compiler.objcopy.eep.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.eep"
+recipe.objcopy.hex.pattern="{compiler.path}{compiler.elf2hex.cmd}" {compiler.elf2hex.flags} {compiler.elf2hex.extra_flags} "{build.path}/{build.project_name}.elf" "{build.path}/{build.project_name}.hex"
+recipe.size.pattern="{compiler.path}{compiler.size.cmd}" -A "{build.path}/{build.project_name}.elf"
+recipe.size.regex=^(?:\.text|\.data|\.bootloader)\s+([0-9]+).*
+recipe.size.regex.data=^(?:\.data|\.bss|\.noinit)\s+([0-9]+).*
+recipe.size.regex.eeprom=^(?:\.eeprom)\s+([0-9]+).*
+tools.avrdude.cmd.path={runtime.ide.path}/hardware/tools/avr/bin/avrdude
+tools.avrdude.config.path={runtime.ide.path}/hardware/tools/avr/etc/avrdude.conf
+tools.avrdude.upload.params.verbose=-v
+tools.avrdude.upload.params.quiet=-q -q
+tools.avrdude.upload.pattern="{cmd.path}" "-C{config.path}" {upload.verbose} -p{build.mcu} -c{upload.protocol} -P{serial.port} -b{upload.speed} -D "-Uflash:w:{build.path}/{build.project_name}.hex:i"
+tools.avrdude.program.params.verbose=-v
+tools.avrdude.program.params.quiet=-q -q
+tools.avrdude.program.pattern="{cmd.path}" "-C{config.path}" {program.verbose} -p{build.mcu} -c{protocol} {program.extra_params} "-Uflash:w:{build.path}/{build.project_name}.hex:i"
+tools.avrdude.erase.params.verbose=-v
+tools.avrdude.erase.params.quiet=-q -q
+tools.avrdude.erase.pattern="{cmd.path}" "-C{config.path}" {erase.verbose} -p{build.mcu} -c{protocol} {program.extra_params} -e -Ulock:w:{bootloader.unlock_bits}:m -Uefuse:w:{bootloader.extended_fuses}:m -Uhfuse:w:{bootloader.high_fuses}:m -Ulfuse:w:{bootloader.low_fuses}:m
+tools.avrdude.bootloader.params.verbose=-v
+tools.avrdude.bootloader.params.quiet=-q -q
+tools.avrdude.bootloader.pattern="{cmd.path}" "-C{config.path}" {bootloader.verbose} -p{build.mcu} -c{protocol} {program.extra_params} "-Uflash:w:{runtime.platform.path}/bootloaders/{bootloader.file}:i" -Ulock:w:{bootloader.lock_bits}:m
+build.usb_manufacturer=
+build.usb_flags=-DUSB_VID={build.vid} -DUSB_PID={build.pid} '-DUSB_MANUFACTURER={build.usb_manufacturer}' '-DUSB_PRODUCT={build.usb_product}'
+vm.platform.root.path=C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\arduino16x
+upload.maximum_size=30720
+upload.maximum_data_size=2048
+upload.speed=57600
+bootloader.low_fuses=0xFF
+bootloader.high_fuses=0xDA
+bootloader.extended_fuses=0x05
+bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
+build.mcu=atmega328p
+ide.hint=Arduino 1.6 Ide
+ide.location.key=Arduino16x
+ide.location.ide.winreg=Arduino 1.6.x Application
+ide.location.sketchbook.winreg=Arduino 1.6.x Sketchbook
+ide.location.sketchbook.preferences=sketchbook.path
+ide.location.preferences=%VM_APPDATA_ROAMING%\arduino15\preferences.txt
+ide.location.preferences_fallback=%VM_APPDATA_ROAMING%\arduino\preferences.txt
+ide.default.version=160
+ide.default.package=arduino
+ide.default.platform=avr
+ide.multiplatform=true
+ide.includes=arduino.h
+ide.platformswithoutpackage=false
+ide.includes.fallback=wprogram.h
+ide.extension=ino
+ide.extension.fallback=pde
+ide.versionGTEQ=160
+ide.exe=arduino.exe
+ide.hosts=atmel
+ide.url=http://arduino.cc/en/Main/Software
+ide.help.reference.path={runtime.ide.path}\arduino.cc\en\Reference
+vm.debug=true
+software=ARDUINO
+ssh.user.name=root
+ssh.user.default.password=arduino
+ssh.host.wwwfiles.path=/www/sd
+build.working_directory={runtime.ide.path}
+ide.appid=arduino16x
+location.sketchbook=C:\Users\Colin\Documents\Arduino
+vm.core.include=arduino.h
+vm.boardsource.path=D:\arduino-1.6.0\hardware\arduino\avr
+runtime.platform.path=D:\arduino-1.6.0\hardware\arduino\avr
+vm.platformname.name=avr
+build.arch=AVR
+build.architecture=avr
+vmresolved.compiler.path=D:\arduino-1.6.0\hardware\tools\avr\bin\
+vmresolved.tools.path=D:\arduino-1.6.0\hardware\tools\avr
+vm.runtime.compiler.showwarnings=false
+serial.port.file=COM25
+serial.port=COM25
+includes= -I"D:\arduino-1.6.0\hardware\arduino\avr\cores\arduino"  -I"D:\arduino-1.6.0\hardware\arduino\avr\variants\eightanaloginputs"  -I"D:\arduino-1.6.0\hardware\arduino\avr\libraries\SoftwareSerial"  -I"D:\arduino-1.6.0\libraries"  -I"D:\arduino-1.6.0\hardware\arduino\avr\libraries"  -I"C:\Program Files (x86)\Visual Micro\Visual Micro for Arduino\Micro Platforms\default\debuggers"  -I"C:\Users\Colin\Documents\Arduino\libraries" 
+build.path=C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328
+build.project_name=GSM-GPRS-GPS-Shield
+build.variant.path=D:\arduino-1.6.0\hardware\arduino\avr\variants\eightanaloginputs
+archive_file=core.a
+object_file=C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\SoftwareSerial\SoftwareSerial.cpp.o
+source_file=D:\arduino-1.6.0\hardware\arduino\avr\libraries\SoftwareSerial\SoftwareSerial.cpp
+object_files="C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\call.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\gps.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\GSM-GPRS-GPS-Shield.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\GSM.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\HWSerial.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\inetGSM.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\LOG.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\SIM900.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\sms.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\WideTextFinder.cpp.o" "C:\Users\Colin\AppData\Local\V.Micro\Arduino\Builds\GSM-GPRS-GPS-Shield\nano_atmega328\SoftwareSerial\SoftwareSerial.cpp.o" 
+upload.verbose=-q -q
+path=D:\arduino-1.6.0\hardware\tools
+cmd.path={runtime.ide.path}/hardware/tools/avr/bin/avrdude
+config.path={runtime.ide.path}/hardware/tools/avr/etc/avrdude.conf
+</arduino.board.property_bag>
+        <arduino.build.mcu>atmega328p</arduino.build.mcu>
+        <arduino.build.f_cpu>16000000L</arduino.build.f_cpu>
+        <arduino.build.core>arduino</arduino.build.core>
+        <arduino.upload.protocol>arduino</arduino.upload.protocol>
+        <arduino.upload.speed>57600</arduino.upload.speed>
+        <arduino.upload.maximum_size>30720</arduino.upload.maximum_size>
+        <visualmicro.application.name>arduino16x</visualmicro.application.name>
+        <visualmicro.package.name>arduino</visualmicro.package.name>
+        <visualmicro.platform.name>avr</visualmicro.platform.name>
+      </VisualMicroSettings>
+    </VisualMicroSettings>
   </PropertyGroup>
   <ItemGroup>
     <None Include="GSM-GPRS-GPS-Shield.ino">

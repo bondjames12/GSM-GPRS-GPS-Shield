@@ -44,22 +44,22 @@ char SMSGSM::SendSMS(char *number_str, char *message_str)
 
           gsm.SimpleWrite(F("AT+CMGS=\""));
           gsm.SimpleWrite(number_str);
-          gsm.SimpleWriteln("\"");
+          gsm.SimpleWriteln(F("\""));
 
 #ifdef DEBUG_ON
-          Serial.println("DEBUG:SMS TEST");
+          Serial.println(F("DEBUG:SMS TEST"));
 #endif
           // 1000 msec. for initial comm tmout
           // 50 msec. for inter character timeout
-          if (RX_FINISHED_STR_RECV == gsm.WaitResp(1000, 500, ">")) {
+          if (RX_FINISHED_STR_RECV == gsm.WaitResp(1000, 500, F(">"))) {
 #ifdef DEBUG_ON
-               Serial.println("DEBUG:>");
+               Serial.println(F("DEBUG:>"));
 #endif
                // send SMS text
                gsm.SimpleWrite(message_str);
                gsm.SimpleWriteln(end);
                //_cell.flush(); // erase rx circular buffer
-               if (RX_FINISHED_STR_RECV == gsm.WaitResp(7000, 5000, "+CMGS")) {
+               if (RX_FINISHED_STR_RECV == gsm.WaitResp(7000, 5000, F("+CMGS"))) {
                     // SMS was send correctly
                     ret_val = 1;
 
@@ -214,7 +214,7 @@ char SMSGSM::IsSMSPresent(byte required_status)
      case RX_FINISHED:
           // something was received but what was received?
           // ---------------------------------------------
-          if(gsm.IsStringReceived("+CMGL:")) {
+          if(gsm.IsStringReceived(F("+CMGL:"))) {
                // there is some SMS with status => get its position
                // response is:
                // +CMGL: <index>,<stat>,<oa/da>,,[,<tooa/toda>,<length>]
@@ -300,7 +300,7 @@ char SMSGSM::GetSMS(byte position, char *phone_number, char *SMS_text, byte max_
 
      // 5000 msec. for initial comm tmout
      // 100 msec. for inter character tmout
-     switch (gsm.WaitResp(5000, 100, "+CMGR")) {
+     switch (gsm.WaitResp(5000, 100, F("+CMGR"))) {
      case RX_TMOUT_ERR:
           // response was not received in specific time
           ret_val = -2;
@@ -312,7 +312,7 @@ char SMSGSM::GetSMS(byte position, char *phone_number, char *SMS_text, byte max_
                // there is only response <CR><LF>OK<CR><LF>
                // => there is NO SMS
                ret_val = GETSMS_NO_SMS;
-          } else if(gsm.IsStringReceived("ERROR")) {
+          } else if(gsm.IsStringReceived(F("ERROR"))) {
                // error should not be here but for sure
                ret_val = GETSMS_NO_SMS;
           }
@@ -324,7 +324,7 @@ char SMSGSM::GetSMS(byte position, char *phone_number, char *SMS_text, byte max_
           //response for new SMS:
           //<CR><LF>+CMGR: "REC UNREAD","+XXXXXXXXXXXX",,"02/03/18,09:54:28+40"<CR><LF>
           //There is SMS text<CR><LF>OK<CR><LF>
-          if(gsm.IsStringReceived("\"REC UNREAD\"")) {
+          if(gsm.IsStringReceived(F("\"REC UNREAD\""))) {
                // get phone number of received SMS: parse phone number string
                // +XXXXXXXXXXXX
                // -------------------------------------------------------
@@ -333,7 +333,7 @@ char SMSGSM::GetSMS(byte position, char *phone_number, char *SMS_text, byte max_
           //response for already read SMS = old SMS:
           //<CR><LF>+CMGR: "REC READ","+XXXXXXXXXXXX",,"02/03/18,09:54:28+40"<CR><LF>
           //There is SMS text<CR><LF>
-          else if(gsm.IsStringReceived("\"REC READ\"")) {
+          else if(gsm.IsStringReceived(F("\"REC READ\""))) {
                // get phone number of received SMS
                // --------------------------------
                ret_val = GETSMS_READ_SMS;

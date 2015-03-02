@@ -29,7 +29,7 @@ void LOG::DATA(int number)
 void LOG::DEBUG(const char* string)
 {
      if (_level > 3) {
-          Serial.print("\n[DEBUG]: ");
+          Serial.print(F("\n[DEBUG]: "));
           Serial.println(string);
      }
 }
@@ -37,7 +37,7 @@ void LOG::DEBUG(const char* string)
 void LOG::INFO(const char* string)
 {
      if (_level > 2) {
-          Serial.print("\n[INFO]: ");
+          Serial.print(F("\n[INFO]: "));
           Serial.println(string);
      }
 }
@@ -45,7 +45,7 @@ void LOG::INFO(const char* string)
 void LOG::WARNING(const char* string)
 {
      if (_level > 1) {
-          Serial.print("\n[WARNING]: ");
+          Serial.print(F("\n[WARNING]: "));
           Serial.println(string);
      }
 }
@@ -53,7 +53,7 @@ void LOG::WARNING(const char* string)
 void LOG::CRITICAL(const char* string)
 {
      if (_level > 0) {
-          Serial.print("\n[CRITICAL]: ");
+          Serial.print(F("\n[CRITICAL]: "));
           Serial.println(string);
      }
 }

@@ -31,16 +31,16 @@ int InetGSM::httpGET(const char* server, int port, const char* path, char* resul
 
      if(!connected) return 0;
 
-     gsm.SimpleWrite("GET ");
+     gsm.SimpleWrite(F("GET "));
      gsm.SimpleWrite(path);
-     gsm.SimpleWrite(" HTTP/1.0\r\nHost: ");
+     gsm.SimpleWrite(F(" HTTP/1.0\r\nHost: "));
      gsm.SimpleWrite(server);
-     gsm.SimpleWrite("\r\n");
-     gsm.SimpleWrite("User-Agent: Arduino");
-     gsm.SimpleWrite("\r\n\r\n");
+     gsm.SimpleWrite(F("\r\n"));
+     gsm.SimpleWrite(F("User-Agent: Arduino"));
+     gsm.SimpleWrite(F("\r\n\r\n"));
      gsm.SimpleWrite(end_c);
 
-     switch(gsm.WaitResp(10000, 10, "SEND OK")) {
+     switch(gsm.WaitResp(10000, 10, F("SEND OK"))) {
      case RX_TMOUT_ERR:
           return 0;
           break;
@@ -101,7 +101,7 @@ int InetGSM::httpPOST(const char* server, int port, const char* path, const char
      gsm.SimpleWrite("\r\n\r\n");
      gsm.SimpleWrite(end_c);
 
-     switch(gsm.WaitResp(10000, 10, "SEND OK")) {
+     switch(gsm.WaitResp(10000, 10, F("SEND OK"))) {
      case RX_TMOUT_ERR:
           return 0;
           break;
@@ -148,14 +148,14 @@ int InetGSM::openmail(char* server, char* loginbase64, char* passbase64, char* f
      gsm.SimpleWrite("\n");
      gsm.SimpleWrite(end_c);
      gsm.WaitResp(5000, 100, str_ok);
-     if(!gsm.IsStringReceived("SEND OK"))
+     if(!gsm.IsStringReceived(F("SEND OK")))
           return 0;
      delay(500);
      gsm.WaitResp(5000, 100);
 
      delay(100);
-     gsm.SimpleWriteln("AT+CIPSEND");
-     switch(gsm.WaitResp(5000, 200, ">")) {
+     gsm.SimpleWriteln(F("AT+CIPSEND"));
+     switch(gsm.WaitResp(5000, 200, F(">"))) {
      case RX_TMOUT_ERR:
           return 0;
           break;
@@ -163,7 +163,7 @@ int InetGSM::openmail(char* server, char* loginbase64, char* passbase64, char* f
           return 0;
           break;
      }
-     gsm.SimpleWrite("AUTH LOGIN\n");
+     gsm.SimpleWrite(F("AUTH LOGIN\n"));
      gsm.SimpleWrite(end_c);
      gsm.WaitResp(5000, 100, str_ok);
      if(!gsm.IsStringReceived(str_ok))
@@ -173,7 +173,7 @@ int InetGSM::openmail(char* server, char* loginbase64, char* passbase64, char* f
 
      delay(100);
      gsm.SimpleWriteln("AT+CIPSEND");
-     switch(gsm.WaitResp(5000, 200, ">")) {
+     switch(gsm.WaitResp(5000, 200, F(">"))) {
      case RX_TMOUT_ERR:
           return 0;
           break;
@@ -192,7 +192,7 @@ int InetGSM::openmail(char* server, char* loginbase64, char* passbase64, char* f
 
      delay(100);
      gsm.SimpleWriteln("AT+CIPSEND");
-     switch(gsm.WaitResp(5000, 200, ">")) {
+     switch(gsm.WaitResp(5000, 200, F(">"))) {
      case RX_TMOUT_ERR:
           return 0;
           break;
@@ -212,7 +212,7 @@ int InetGSM::openmail(char* server, char* loginbase64, char* passbase64, char* f
 
      delay(100);
      gsm.SimpleWriteln("AT+CIPSEND");
-     switch(gsm.WaitResp(5000, 200, ">")) {
+     switch(gsm.WaitResp(5000, 200, F(">"))) {
      case RX_TMOUT_ERR:
           return 0;
           break;
@@ -228,11 +228,11 @@ int InetGSM::openmail(char* server, char* loginbase64, char* passbase64, char* f
      if(!gsm.IsStringReceived(str_ok))
           return 0;
      delay(500);
-     gsm.WaitResp(5000, 100, "");
+     gsm.WaitResp(5000, 100, F(""));
 
      delay(100);
      gsm.SimpleWriteln("AT+CIPSEND");
-     switch(gsm.WaitResp(5000, 200, ">")) {
+     switch(gsm.WaitResp(5000, 200, F(">"))) {
      case RX_TMOUT_ERR:
           return 0;
           break;
@@ -248,11 +248,11 @@ int InetGSM::openmail(char* server, char* loginbase64, char* passbase64, char* f
      if(!gsm.IsStringReceived(str_ok))
           return 0;
      delay(500);
-     gsm.WaitResp(5000, 100, "");
+     gsm.WaitResp(5000, 100, F(""));
 
      delay(100);
      gsm.SimpleWriteln("AT+CIPSEND");
-     switch(gsm.WaitResp(5000, 200, ">")) {
+     switch(gsm.WaitResp(5000, 200, F(">"))) {
      case RX_TMOUT_ERR:
           return 0;
           break;
@@ -266,11 +266,11 @@ int InetGSM::openmail(char* server, char* loginbase64, char* passbase64, char* f
      if(!gsm.IsStringReceived(str_ok))
           return 0;
      delay(500);
-     gsm.WaitResp(5000, 100, "");
+     gsm.WaitResp(5000, 100, F(""));
 
      delay(100);
      gsm.SimpleWriteln("AT+CIPSEND");
-     switch(gsm.WaitResp(5000, 200, ">")) {
+     switch(gsm.WaitResp(5000, 200, F(">"))) {
      case RX_TMOUT_ERR:
           return 0;
           break;
@@ -305,15 +305,15 @@ int InetGSM::attachGPRS(char* domain, char* dom1, char* dom2)
      //gsm._tf.setTimeout(_GSM_DATA_TOUT_);	//Timeout for expecting modem responses.
      gsm.WaitResp(50, 50);
      gsm.SimpleWriteln("AT+CIFSR");
-     if(gsm.WaitResp(5000, 50, "ERROR")!=RX_FINISHED_STR_RECV) {
+     if(gsm.WaitResp(5000, 50, F("ERROR"))!=RX_FINISHED_STR_RECV) {
 #ifdef DEBUG_ON
           Serial.println("DB:ALREADY HAVE AN IP");
 #endif
           gsm.SimpleWriteln("AT+CIPCLOSE");
-          gsm.WaitResp(5000, 50, "ERROR");
+          gsm.WaitResp(5000, 50, F("ERROR"));
           delay(2000);
           gsm.SimpleWriteln("AT+CIPSERVER=0");
-          gsm.WaitResp(5000, 50, "ERROR");
+          gsm.WaitResp(5000, 50, F("ERROR"));
           return 1;
      } else {
 
@@ -323,7 +323,7 @@ int InetGSM::attachGPRS(char* domain, char* dom1, char* dom2)
 
           gsm.SimpleWriteln("AT+CIPSHUT");
 
-          switch(gsm.WaitResp(500, 50, "SHUT OK")) {
+          switch(gsm.WaitResp(500, 50, F("SHUT OK"))) {
 
           case RX_TMOUT_ERR:
                return 0;
@@ -378,7 +378,7 @@ int InetGSM::attachGPRS(char* domain, char* dom1, char* dom2)
 
 
           gsm.SimpleWriteln("AT+CIFSR");
-          if(gsm.WaitResp(5000, 50, "ERROR")!=RX_FINISHED_STR_RECV) {
+          if(gsm.WaitResp(5000, 50, F("ERROR"))!=RX_FINISHED_STR_RECV) {
 #ifdef DEBUG_ON
                Serial.println("DB:ASSIGNED AN IP");
 #endif
@@ -401,7 +401,7 @@ int InetGSM::dettachGPRS()
      //_cell.flush();
 
      //GPRS dettachment.
-     gsm.SimpleWriteln("AT+CGATT=0");
+     gsm.SimpleWriteln(F("AT+CGATT=0"));
      if(gsm.WaitResp(5000, 50, str_ok)!=RX_FINISHED_STR_NOT_RECV) {
           gsm.setStatus(gsm.ERROR);
           return 0;
@@ -430,9 +430,9 @@ int InetGSM::connectTCP(const char* server, int port)
      //_cell.flush();
 
      //Visit the remote TCP server.
-     gsm.SimpleWrite("AT+CIPSTART=\"TCP\",\"");
+     gsm.SimpleWrite(F("AT+CIPSTART=\"TCP\",\""));
      gsm.SimpleWrite(server);
-     gsm.SimpleWrite("\",");
+     gsm.SimpleWrite(F("\","));
      gsm.SimpleWriteln(port);
 
      switch(gsm.WaitResp(1000, 200, str_ok)) {
@@ -444,9 +444,9 @@ int InetGSM::connectTCP(const char* server, int port)
           break;
      }
 #ifdef DEBUG_ON
-     Serial.println("DB:RECVD CMD");
+     Serial.println(F("DB:RECVD CMD"));
 #endif
-     if (!gsm.IsStringReceived("CONNECT OK")) {
+     if (!gsm.IsStringReceived(F("CONNECT OK"))) {
           switch(gsm.WaitResp(15000, 200, str_ok)) {
           case RX_TMOUT_ERR:
                return 0;
@@ -458,12 +458,12 @@ int InetGSM::connectTCP(const char* server, int port)
      }
 
 #ifdef DEBUG_ON
-     Serial.println("DB:OK TCP");
+     Serial.println(F("DB:OK TCP"));
 #endif
 
      delay(3000);
-     gsm.SimpleWriteln("AT+CIPSEND");
-     switch(gsm.WaitResp(5000, 200, ">")) {
+     gsm.SimpleWriteln(F("AT+CIPSEND"));
+     switch(gsm.WaitResp(5000, 200, F(">"))) {
      case RX_TMOUT_ERR:
           return 0;
           break;
@@ -473,7 +473,7 @@ int InetGSM::connectTCP(const char* server, int port)
      }
 
 #ifdef DEBUG_ON
-     Serial.println("DB:>");
+     Serial.println(F("DB:>"));
 #endif
      delay(4000);
      return 1;
@@ -497,7 +497,7 @@ int InetGSM::disconnectTCP()
      //delay(200);
 
      //Close TCP client and deact.
-     gsm.SimpleWriteln("AT+CIPCLOSE");
+     gsm.SimpleWriteln(F("AT+CIPCLOSE"));
 
      //If remote server close connection AT+QICLOSE generate ERROR
      /*if(gsm._tf.find(str_ok))
@@ -530,7 +530,7 @@ int InetGSM::connectTCPServer(int port)
 
      // Set port
 
-     gsm.SimpleWrite("AT+CIPSERVER=1,");
+     gsm.SimpleWrite(F("AT+CIPSERVER=1,"));
      gsm.SimpleWriteln(port);
      /*
        switch(gsm.WaitResp(5000, 50, str_ok)){
@@ -564,7 +564,7 @@ boolean InetGSM::connectedClient()
         return 0;
      */
 
-     gsm.SimpleWriteln("AT+CIPSTATUS");
+     gsm.SimpleWriteln(F("AT+CIPSTATUS"));
      // Alternative: AT+QISTAT, although it may be necessary to call an AT
      // command every second,which is not wise
      /*
@@ -577,7 +577,7 @@ boolean InetGSM::connectedClient()
      break;
      }*/
      //gsm._tf.setTimeout(1);
-     if(gsm.WaitResp(5000, 50, "CONNECT OK")!=RX_FINISHED_STR_RECV) {
+     if(gsm.WaitResp(5000, 50, F("CONNECT OK"))!=RX_FINISHED_STR_RECV) {
           gsm.setStatus(gsm.TCPCONNECTEDSERVER);
           return true;
      } else

@@ -60,7 +60,7 @@ void HWSerial::flush()
 
 size_t HWSerial::print(const __FlashStringHelper *ifsh)
 {
-     const prog_char *p = (const prog_char *)ifsh;
+     const char PROGMEM *p = (const char PROGMEM *)ifsh;
      size_t n = 0;
      while (1) {
           unsigned char c = pgm_read_byte(p++);
@@ -265,7 +265,7 @@ size_t HWSerial::printFloat(double number, uint8_t digits)
 
      // Print the decimal point, but only if there are digits beyond
      if (digits > 0) {
-          n += print(".");
+          n += print(F("."));
      }
 
      // Extract digits from the remainder one at a time

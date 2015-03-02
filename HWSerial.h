@@ -7,9 +7,9 @@
 #include "Streaming.h"
 #include <inttypes.h>
 
-
-class HWSerial {
 #ifdef MEGA
+class HWSerial {
+
 private:
      int write_error;
      size_t printNumber(unsigned long, uint8_t);
@@ -66,7 +66,8 @@ public:
      boolean find(char *target);
      boolean  findUntil(char *target, char *terminate);
 
-#endif
+
 
 };
+#endif
 #endif

@@ -17,7 +17,7 @@
 #define lf    10 //Ascii character for line feed.
 #define GSM_LIB_VERSION 308 // library version X.YY (e.g. 1.00)
 
-#define DEBUG_ON
+//#define DEBUG_ON
 
 
 #ifdef MEGA
@@ -77,7 +77,7 @@
 #define CLOSE_AND_REOPEN  1
 
 // Common string used
-#define str_ok 		"OK"			//string to reduce stack usage
+#define str_ok 		F("OK")			//string to reduce stack usage
 #define str_at		F("AT")			//string to reduce stack usage
 
 // SMS type
@@ -212,17 +212,17 @@ public:
      };
      void RxInit(uint16_t start_comm_tmout, uint16_t max_interchar_tmout);
      byte IsRxFinished(void);
-     byte IsStringReceived(char const *compare_string);
+     byte IsStringReceived(const __FlashStringHelper *flashstring);
      byte WaitResp(uint16_t start_comm_tmout, uint16_t max_interchar_tmout);
      byte WaitResp(uint16_t start_comm_tmout, uint16_t max_interchar_tmout,
-                   char const *expected_resp_string);
-     char SendATCmdWaitResp(char const *AT_cmd_string,
+                  const __FlashStringHelper *expected_resp_string);
+     /*char SendATCmdWaitResp(char const *AT_cmd_string,
                             uint16_t start_comm_tmout, uint16_t max_interchar_tmout,
                             char const *response_string,
-                            byte no_of_attempts);
+                            byte no_of_attempts);*/
      char SendATCmdWaitResp(const __FlashStringHelper *AT_cmd_string,
                             uint16_t start_comm_tmout, uint16_t max_interchar_tmout,
-                            char const *response_string,
+                            const __FlashStringHelper *response_string,
                             byte no_of_attempts);
      void Echo(byte state);
 

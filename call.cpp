@@ -37,15 +37,15 @@ byte CallGSM::CallStatus(void)
           // <CR><LF>+CPAS: 3<CR><LF> <CR><LF>OK<CR><LF> - NO CALL
           // call in progress
           // <CR><LF>+CPAS: 4<CR><LF> <CR><LF>OK<CR><LF> - NO CALL
-          if(gsm.IsStringReceived("+CPAS: 0")) {
+          if(gsm.IsStringReceived(F("+CPAS: 0"))) {
                // ready - there is no call
                // ------------------------
                ret_val = CALL_NONE;
-          } else if(gsm.IsStringReceived("+CPAS: 3")) {
+          } else if(gsm.IsStringReceived(F("+CPAS: 3"))) {
                // incoming call
                // --------------
                ret_val = CALL_INCOM_VOICE;
-          } else if(gsm.IsStringReceived("+CPAS: 4")) {
+          } else if(gsm.IsStringReceived(F("+CPAS: 4"))) {
                // active call
                // -----------
                ret_val = CALL_ACTIVE_VOICE;
@@ -105,7 +105,7 @@ byte CallGSM::CallStatusWithAuth(char *phone_number,
      gsm.RxInit(5000, 1500);
      // wait response is finished
      do {
-          if (gsm.IsStringReceived("OK\r\n")) {
+          if (gsm.IsStringReceived(F("OK\r\n"))) {
                // perfect - we have some response, but what:
 
                // there is either NO call:
@@ -128,32 +128,32 @@ byte CallGSM::CallStatusWithAuth(char *phone_number,
           // something was received but what was received?
           // example: //+CLCC: 1,1,4,0,0,"+420XXXXXXXXX",145
           // ---------------------------------------------
-          if(gsm.IsStringReceived("+CLCC: 1,1,4,0,0")) {
+          if(gsm.IsStringReceived(F("+CLCC: 1,1,4,0,0"))) {
                // incoming VOICE call - not authorized so far
                // -------------------------------------------
                search_phone_num = 1;
                ret_val = CALL_INCOM_VOICE_NOT_AUTH;
-          } else if(gsm.IsStringReceived("+CLCC: 1,1,4,1,0")) {
+          } else if(gsm.IsStringReceived(F("+CLCC: 1,1,4,1,0"))) {
                // incoming DATA call - not authorized so far
                // ------------------------------------------
                search_phone_num = 1;
                ret_val = CALL_INCOM_DATA_NOT_AUTH;
-          } else if(gsm.IsStringReceived("+CLCC: 1,0,0,0,0")) {
+          } else if(gsm.IsStringReceived(F("+CLCC: 1,0,0,0,0"))) {
                // active VOICE call - GSM is caller
                // ----------------------------------
                search_phone_num = 1;
                ret_val = CALL_ACTIVE_VOICE;
-          } else if(gsm.IsStringReceived("+CLCC: 1,1,0,0,0")) {
+          } else if(gsm.IsStringReceived(F("+CLCC: 1,1,0,0,0"))) {
                // active VOICE call - GSM is listener
                // -----------------------------------
                search_phone_num = 1;
                ret_val = CALL_ACTIVE_VOICE;
-          } else if(gsm.IsStringReceived("+CLCC: 1,1,0,1,0")) {
+          } else if(gsm.IsStringReceived(F("+CLCC: 1,1,0,1,0"))) {
                // active DATA call - GSM is listener
                // ----------------------------------
                search_phone_num = 1;
                ret_val = CALL_ACTIVE_DATA;
-          } else if(gsm.IsStringReceived("+CLCC:")) {
+          } else if(gsm.IsStringReceived(F("+CLCC:"))) {
                // other string is not important for us - e.g. GSM module activate call
                // etc.
                // IMPORTANT - each +CLCC:xx response has also at the end
@@ -176,11 +176,11 @@ byte CallGSM::CallStatusWithAuth(char *phone_number,
                if (p_char != NULL) {
                     *p_char = 0; // end of string
                     strcpy(phone_number, (char *)(p_char1));
-                    Serial.print("ATTESO: ");
+                    Serial.print(F("ATTESO: "));
                     Serial.println(phone_number);
                } else
                     //Serial.println(gsm.comm_buf);
-                    Serial.println("NULL");
+                    Serial.println(F("NULL"));
 
                if ( (ret_val == CALL_INCOM_VOICE_NOT_AUTH)
                          || (ret_val == CALL_INCOM_DATA_NOT_AUTH)) {
@@ -227,8 +227,8 @@ void CallGSM::PickUp(void)
 {
      //if (CLS_FREE != gsm.GetCommLineStatus()) return;
      //gsm.SetCommLineStatus(CLS_ATCMD);
-     gsm.SendATCmdWaitResp("ATA", 10, 10, str_ok, 3);
-     gsm.SimpleWriteln("ATA");
+     gsm.SendATCmdWaitResp(F("ATA"), 10, 10, str_ok, 3);
+     gsm.SimpleWriteln(F("ATA"));
      //gsm.SetCommLineStatus(CLS_FREE);
 }
 
@@ -241,7 +241,7 @@ void CallGSM::HangUp(void)
 {
      //if (CLS_FREE != gsm.GetCommLineStatus()) return;
      //gsm.SetCommLineStatus(CLS_ATCMD);
-     gsm.SendATCmdWaitResp("ATH", 500, 100, str_ok, 5);
+     gsm.SendATCmdWaitResp(F("ATH"), 500, 100, str_ok, 5);
      //gsm.SetCommLineStatus(CLS_FREE);
 }
 
@@ -308,9 +308,9 @@ void CallGSM::SendDTMF(char *number_string, int time)
 void CallGSM::SetDTMF(int DTMF_status)
 {
      if(DTMF_status==1)
-          gsm.SendATCmdWaitResp("AT+DDET=1", 500, 50, str_ok, 5);
+          gsm.SendATCmdWaitResp(F("AT+DDET=1"), 500, 50, str_ok, 5);
      else
-          gsm.SendATCmdWaitResp("AT+DDET=0", 500, 50, str_ok, 5);
+          gsm.SendATCmdWaitResp(F("AT+DDET=0"), 500, 50, str_ok, 5);
 }
 
 
